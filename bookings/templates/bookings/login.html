@@ -1,0 +1,33 @@
+{% extends "bookings/base.html" %}
+{% block title %}Вхід{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-4">
+    <div class="card">
+      <div class="card-header bg-white"><h4 class="mb-0">Вхід в систему</h4></div>
+      <div class="card-body">
+        <form method="post">
+          {% csrf_token %}
+          <div class="mb-3">
+            <label class="form-label">Логін</label>
+            <input type="text" name="username" class="form-control" autofocus required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Пароль</label>
+            <input type="password" name="password" class="form-control" required>
+          </div>
+          {% if form.errors %}
+            <div class="alert alert-danger">Невірний логін або пароль.</div>
+          {% endif %}
+          <button type="submit" class="btn btn-primary w-100">Увійти</button>
+        </form>
+        <hr>
+        <p class="text-center text-muted mb-0">
+          Немає акаунту? <a href="{% url 'register' %}">Зареєструватися</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

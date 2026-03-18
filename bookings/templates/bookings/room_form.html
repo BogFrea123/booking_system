@@ -1,0 +1,33 @@
+{% extends "bookings/base.html" %}
+{% block title %}{{ action }} кімнату{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header bg-white">
+        <h4 class="mb-0">{{ action }} кімнату</h4>
+      </div>
+      <div class="card-body">
+        <form method="post">
+          {% csrf_token %}
+          {% for field in form %}
+            <div class="mb-3 {% if field.field.widget.input_type == 'checkbox' %}form-check{% endif %}">
+              {% if field.field.widget.input_type == 'checkbox' %}
+                {{ field }}<label class="form-check-label ms-1">{{ field.label }}</label>
+              {% else %}
+                <label class="form-label fw-semibold">{{ field.label }}</label>{{ field }}
+              {% endif %}
+              {% if field.errors %}<div class="text-danger small mt-1">{{ field.errors }}</div>{% endif %}
+            </div>
+          {% endfor %}
+          <div class="d-flex gap-2">
+            <button type="submit" class="btn btn-success flex-grow-1">{{ action }}</button>
+            <a href="{% url 'room_list' %}" class="btn btn-outline-secondary">Скасувати</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
