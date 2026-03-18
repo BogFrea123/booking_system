@@ -1,0 +1,50 @@
+{% extends "bookings/base.html" %}
+{% block title %}Адмін — Бронювання{% endblock %}
+
+{% block content %}
+<h2 class="mb-3">Панель адміністратора — Бронювання</h2>
+
+<form method="get" class="d-flex gap-2 mb-3">
+  <select name="status" class="form-select w-auto">
+    <option value="">Всі статуси</option>
+    {% for value, label in status_choices %}
+      <option value="{{ value }}" {% if selected_status == value %}selected{% endif %}>{{ label }}</option>
+    {% endfor %}
+  </select>
+  <button type="submit" class="btn btn-primary">Фільтрувати</button>
+  <a href="{% url 'admin_bookings' %}" class="btn btn-outline-secondary">Скинути</a>
+</form>
+
+<div class="table-responsive">
+  <table class="table table-hover bg-white rounded shadow-sm">
+    <thead class="table-light">
+      <tr><th>#</th><th>Користувач</th><th>Кімната</th><th>Початок</th><th>Кінець</th><th>Статус</th><th>Змінити статус</th></tr>
+    </thead>
+    <tbody>
+      {% for b in bookings %}
+      <tr>
+        <td>{{ b.pk }}</td>
+        <td>{{ b.user.username }}<br><small class="text-muted">{{ b.user.email }}</small></td>
+        <td>{{ b.room.name }}</td>
+        <td>{{ b.start_date }}</td>
+        <td>{{ b.end_date }}</td>
+        <td><span class="badge badge-{{ b.status }}">{{ b.get_status_display }}</span></td>
+        <td>
+          <form method="post" action="{% url 'admin_booking_update' b.pk %}" class="d-flex gap-1">
+            {% csrf_token %}
+            <select name="status" class="form-select form-select-sm w-auto">
+              {% for value, label in status_choices %}
+                <option value="{{ value }}" {% if b.status == value %}selected{% endif %}>{{ label }}</option>
+              {% endfor %}
+            </select>
+            <button type="submit" class="btn btn-sm btn-primary">Зберегти</button>
+          </form>
+        </td>
+      </tr>
+      {% empty %}
+      <tr><td colspan="7" class="text-center text-muted py-4">Бронювань не знайдено</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

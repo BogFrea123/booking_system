@@ -1,0 +1,34 @@
+{% extends "bookings/base.html" %}
+{% block title %}Бронювання #{{ booking.pk }}{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header bg-white d-flex justify-content-between align-items-center">
+        <h4 class="mb-0">Бронювання #{{ booking.pk }}</h4>
+        <span class="badge badge-{{ booking.status }} fs-6">{{ booking.get_status_display }}</span>
+      </div>
+      <div class="card-body">
+        <table class="table table-borderless">
+          <tr><th>Кімната</th><td>{{ booking.room.name }}</td></tr>
+          <tr><th>Дата початку</th><td>{{ booking.start_date }}</td></tr>
+          <tr><th>Дата завершення</th><td>{{ booking.end_date }}</td></tr>
+          <tr><th>Тривалість</th><td>{{ booking.duration_days }} дн.</td></tr>
+          <tr><th>Загальна вартість</th><td><strong>{{ booking.total_price }} грн</strong></td></tr>
+          {% if booking.notes %}<tr><th>Примітки</th><td>{{ booking.notes }}</td></tr>{% endif %}
+          <tr><th>Створено</th><td>{{ booking.created_at|date:"d.m.Y H:i" }}</td></tr>
+        </table>
+      </div>
+      <div class="card-footer bg-transparent d-flex gap-2">
+        <a href="{% url 'my_bookings' %}" class="btn btn-outline-secondary">Мої бронювання</a>
+        {% if booking.status != 'cancelled' %}
+        <form method="post" action="{% url 'booking_cancel' booking.pk %}" onsubmit="return confirm('Скасувати?')">
+          {% csrf_token %}<button type="submit" class="btn btn-outline-danger">Скасувати</button>
+        </form>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

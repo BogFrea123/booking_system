@@ -1,0 +1,54 @@
+[
+  {
+    "model": "bookings.room",
+    "pk": 1,
+    "fields": {
+      "name": "Конференц-зал «Атлас»",
+      "room_type": "conference",
+      "capacity": 20,
+      "price_per_day": "2500.00",
+      "description": "Просторий конференц-зал з проектором, маркерною дошкою та системою відеозв'язку. Ідеально підходить для ділових нарад та тренінгів.",
+      "is_active": true,
+      "created_at": "2024-01-01T10:00:00Z"
+    }
+  },
+  {
+    "model": "bookings.room",
+    "pk": 2,
+    "fields": {
+      "name": "Переговорна «Меркурій»",
+      "room_type": "office",
+      "capacity": 8,
+      "price_per_day": "800.00",
+      "description": "Затишна переговорна кімната для невеликих зустрічей. Є телевізор для презентацій та кавова станція.",
+      "is_active": true,
+      "created_at": "2024-01-01T10:00:00Z"
+    }
+  },
+  {
+    "model": "bookings.room",
+    "pk": 3,
+    "fields": {
+      "name": "Івент-зал «Горизонт»",
+      "room_type": "event",
+      "capacity": 100,
+      "price_per_day": "8000.00",
+      "description": "Великий зал для корпоративних заходів, презентацій та конференцій. Є сцена, звукова система та гардероб.",
+      "is_active": true,
+      "created_at": "2024-01-01T10:00:00Z"
+    }
+  },
+  {
+    "model": "bookings.room",
+    "pk": 4,
+    "fields": {
+      "name": "Коворкінг «Open Space»",
+      "room_type": "coworking",
+      "capacity": 15,
+      "price_per_day": "500.00",
+      "description": "Відкритий коворкінг простір з швидким інтернетом, принтером та зоною відпочинку.",
+      "is_active": true,
+      "created_at": "2024-01-01T10:00:00Z"
+    }
+  }
+]
